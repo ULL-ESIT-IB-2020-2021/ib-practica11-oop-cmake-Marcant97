@@ -1,36 +1,25 @@
 #include <iostream> 
 #include <fstream>
+#include "fecha.h"
 
-int dia1;
-int mes1;
-int anyo1;
-int numero;
-std::string nombre;
 
-class ClaseFecha{
-private:
-  int m_dia;
-  int m_mes;
-  int m_anyo;
 
-public:
-
-ClaseFecha(int dia, int mes, int anyo){  //Constructor por defecto.
+ClaseFecha::ClaseFecha(int dia, int mes, int anyo){  //Constructor por defecto.
   m_dia=dia;
   m_mes=mes;
   m_anyo=anyo;
 }
-  void establecerFecha(int dia, int mes, int anyo) {  //Método establecer fecha
-	m_dia = dia;
+  void ClaseFecha::establecerFecha(int dia, int mes, int anyo) {  //Método establecer fecha
+	  m_dia = dia;
     m_mes= mes;
     m_anyo = anyo;
   }
  
-  void print(){  //Método imprimir fecha
+  void ClaseFecha::print(){  //Método imprimir fecha
     std::cout << m_dia << '/' << m_mes << '/' << m_anyo;
   }
 
-  bool esBisiesto(){   //Método que determina si el año es bisiesto o no.
+  bool ClaseFecha::esBisiesto(){   //Método que determina si el año es bisiesto o no.
     if ((m_anyo%4) == 0){
 	  std::cout<<m_anyo<<" es bisiesto"<<std::endl;
       return true;
@@ -42,7 +31,7 @@ ClaseFecha(int dia, int mes, int anyo){  //Constructor por defecto.
   }
 
 
-  void fechasPosteriores(int dias_posteriores){
+  void ClaseFecha::fechasPosteriores(int dias_posteriores){
 
     std::ofstream fichero("prueba1.txt");
     if( fichero.fail() ){
@@ -89,22 +78,4 @@ ClaseFecha(int dia, int mes, int anyo){  //Constructor por defecto.
     }
     fichero.close();
   }
-};
 
-int main(){
-  ClaseFecha hoy(0,0,0);
-  std::cout << "Dime el día, el mes y el año(dd(intro) mm(intro) aa(intro)):" << std::endl;
-  std::cin >> dia1;
-  std::cin >> mes1;
-  std::cin >> anyo1;
-  hoy.establecerFecha(dia1,mes1,anyo1);
-  hoy.print();
-  std::cout<<" "<<std::endl;
-  std::cout<<hoy.esBisiesto()<<std::endl;
-  std::cout<<" "<<std::endl;
-  std::cout<<"Dime el número de días posteriores:"<<std::endl;
-  std::cin>>numero;
-  hoy.fechasPosteriores(numero);
-  std::cout<<"Ya puedes ecnontrar las "<<numero <<" fechas posteriores, en el documento prueba1.txt que se ha generado."<<std::endl;
-  return 0;
-}
