@@ -1,26 +1,29 @@
-#include <iostream>
+#include <iostream> 
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+#include <cstring>
 #include "fecha.h"
 
-int dia1;
-int mes1;
-int anyo1;
-int numero;
-std::string nombre;
+int main(int argc, char* argv[]){
+  Usage(argc, argv);
+  std::string date {argv[1]};     //Dia,mes y año
+  std::vector<int>fecha_separada=ParseString(date);
+  int dia1= fecha_separada[0];
+  int mes1=fecha_separada[1];
+  int anyo1=fecha_separada[2];
 
-int main(){
+  const int kNum = atoi(argv[2]);      //numero fechas
+  
+  const std::string kNombre{argv[3]};  //nombre archivo
+
   ClaseFecha hoy(0,0,0);
-  std::cout << "Dime el día, el mes y el año(dd(intro) mm(intro) aa(intro)):" << std::endl;
-  std::cin >> dia1;
-  std::cin >> mes1;
-  std::cin >> anyo1;
-  hoy.establecerFecha(dia1,mes1,anyo1);
+  hoy.establecerFecha(dia1, mes1, anyo1);
   hoy.print();
   std::cout<<" "<<std::endl;
-  std::cout<<hoy.esBisiesto()<<std::endl;
-  std::cout<<" "<<std::endl;
-  std::cout<<"Dime el número de días posteriores:"<<std::endl;
-  std::cin>>numero;
-  hoy.fechasPosteriores(numero);
-  std::cout<<"Ya puedes encontrar las "<<numero <<" fechas posteriores, en el documento prueba1.txt que se ha generado."<<std::endl;
+  hoy.esBisiesto();
+  hoy.fechasPosteriores(kNum,kNombre);
+  std::cout<<"Ya puedes encontrar las "<<kNum <<" fechas posteriores, en el documento "<<kNombre<< " que se ha generado."<<std::endl;
   return 0;
 }
